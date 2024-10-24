@@ -37,7 +37,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
 # Get data
 mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc = get_mstr_data()
 btc_price = get_btc_data()
-bitcoin_per_share =  shares/mstr_btc  # Update this with the latest value
+bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)
 # User inputs
 st.sidebar.header("Input your portfolio details")

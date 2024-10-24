@@ -16,7 +16,8 @@ def get_mstr_data():
     mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    return hist, current_price,mrkt_cap
+    shares=mstr.get_shares_full().iloc[-1]
+    return hist, current_price,mrkt_cap,shares
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
@@ -29,7 +30,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
     return nav_premium
 
 # Get data
-mstr_hist, mstr_price,mrkt_cap = get_mstr_data()
+mstr_hist, mstr_price,mrkt_cap,shares = get_mstr_data()
 btc_price = get_btc_data()
 bitcoin_per_share =  0.001245  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)
@@ -47,11 +48,12 @@ portfolio_value = mstr_price * shares_owned
 # Display in a table
 
 data = {
-    'Metric': ['MSTR Price ($USD)', 'Bitcoin Price (USD)', 'MSTR Market Cap (USD)', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
+    'Metric': ['MSTR Price ($USD)', 'Bitcoin Price (USD)', 'MSTR Market Cap (USD)', 'MSTR Shares Outstanding', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
         'Current Value': [
         f"${mstr_price:,.2f}",
         f"${btc_price:,.2f}",
         f"${mrkt_cap:,.2f}",
+        f"${shares:,.2f}",
         f"{nav_premium_input:.3f}",
         f"{bitcoin_per_share:,.6f}",
         f"${portfolio_value:,.2f}"

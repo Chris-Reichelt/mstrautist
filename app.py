@@ -32,7 +32,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
 mstr_hist, mstr_price,mrkt_cap = get_mstr_data()
 btc_price = get_btc_data()
 bitcoin_per_share =  0.001245  # Update this with the latest value
-
+nav_premium=calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)
 # User inputs
 st.sidebar.header("Input your portfolio details")
 shares_owned = st.sidebar.number_input('Number of MSTR shares owned', value=1, min_value=1)

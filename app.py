@@ -53,7 +53,7 @@ data = {
         f"${mstr_price:,.2f}",
         f"${btc_price:,.2f}",
         f"${mrkt_cap:,.2f}",
-        f"${shares:,.2f}",
+        f"{shares:,f}",
         f"{nav_premium_input:.3f}",
         f"{bitcoin_per_share:,.6f}",
         f"${portfolio_value:,.2f}"

@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 
 # Add MSTR logo and a GME mania GIF
 st.image("https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg", width=300)
-st.markdown("<h1 style='text-align: center; color: red;'>MSTR Tracker App 🚀</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: red;'>🚀 THE Autistic MSTR App 🚀</h1>", unsafe_allow_html=True)
 
 st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your portfolio</h3>", unsafe_allow_html=True)
 st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
@@ -46,7 +46,7 @@ portfolio_value = future_mstr_price * shares_owned
 # Display in a table
 st.subheader("Current MSTR Data and Calculated Portfolio")
 data = {
-    'Metric': ['MSTR Price', 'Bitcoin Price', 'MSTR Market Cap', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value'],
+    'Metric': ['MSTR Price ($USD)', 'Bitcoin Price ($USD)', 'MSTR Market Cap ($USD)', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
     'Value': [mstr_price, btc_price, mstr_price * bitcoin_per_share, f"{nav_premium_input}%", bitcoin_per_share, portfolio_value]
 }
 df = pd.DataFrame(data)

@@ -109,7 +109,7 @@ st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow
 # Display the historical price chart
 st.subheader('Historical Data')
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=mstr_hist.index, y=(mstr_hist['Close'],btc_price['Close']), mode='lines', name='MSTR Price'))
+fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'))
 fig.update_layout(title='MSTR & BTC Price', xaxis_title='Date', yaxis_title='Price')
 st.plotly_chart(fig)
 

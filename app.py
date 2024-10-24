@@ -59,7 +59,7 @@ data = {
 }
 df = pd.DataFrame(data)
 #remove the index
-df.reset_index(drop=True, inplace=True)
+df=df.reset_index(drop=True, inplace=True)
 st.table(df)
 
 

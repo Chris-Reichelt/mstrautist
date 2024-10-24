@@ -29,7 +29,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
     return nav_premium
 
 # Get data
-mstr_hist, mstr_price = get_mstr_data()
+mstr_hist, mstr_price,mrkt_cap = get_mstr_data()
 btc_price = get_btc_data()
 bitcoin_per_share =  0.001245  # Update this with the latest value
 

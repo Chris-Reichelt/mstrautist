@@ -13,9 +13,10 @@ st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_c
 # Fetch data
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
-    hist = mstr.history(period='1y')
+    mrkt_cap=mstr.fast_info['marketCap']
+    hist = mstr.history(period='5y')
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    return hist, current_price
+    return hist, current_price,mrkt_cap
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
@@ -36,7 +37,7 @@ bitcoin_per_share =  0.001245  # Update this with the latest value
 st.sidebar.header("Input your portfolio details")
 shares_owned = st.sidebar.number_input('Number of MSTR shares owned', value=1, min_value=1)
 future_btc_price = st.sidebar.number_input('Future BTC Price', value=float(btc_price), min_value=float(1.0))
-nav_premium_input = st.sidebar.number_input('NAV Premium (%)', value=float(calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)))
+nav_premium_input = st.sidebar.number_input('NAV Premium ', value=float(calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)))
 
 # Calculate future MSTR price and portfolio value
 future_nav_per_share = future_btc_price * bitcoin_per_share
@@ -46,13 +47,13 @@ portfolio_value = future_mstr_price * shares_owned
 # Display in a table
 st.subheader("Current MSTR Data and Calculated Portfolio")
 data = {
-    'Metric': ['MSTR Price ($USD)', 'Bitcoin Price ($USD)', 'MSTR Market Cap ($USD)', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
-        'Value': [
+    'Metric': ['MSTR Price ($USD)', 'Bitcoin Price (USD)', 'MSTR Market Cap (USD)', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
+        'Current Value': [
         f"${mstr_price:,.2f}",
         f"${btc_price:,.2f}",
-        f"${mstr_price * bitcoin_per_share:,.2f}",
-        f"{nav_premium_input:.2f}%",
-        f"{bitcoin_per_share:,.2f}",
+        f"${mrkt_cap:,.2f}",
+        f"{nav_premium_input:.3f}",
+        f"{bitcoin_per_share:,.6f}",
         f"${portfolio_value:,.2f}"
     ]
 }

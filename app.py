@@ -59,8 +59,10 @@ data = {
 }
 df = pd.DataFrame(data)
 #remove the index
-df=df.reset_index(drop=True, inplace=True)
-st.table(df)
+st.table(df.values.tolist())
+
+# If you want to keep the column headers
+st.table([df.columns.tolist()] + df.values.tolist())
 
 
 # Display the historical price chart

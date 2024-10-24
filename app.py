@@ -42,7 +42,7 @@ nav_premium_input = st.sidebar.number_input('NAV Premium ', value=float(calculat
 # Calculate future MSTR price and portfolio value
 #future_nav_per_share = future_btc_price * bitcoin_per_share
 future_mstr_price = nav_premium * (1 + (nav_premium / 100))
-portfolio_value = future_mstr_price * shares_owned
+portfolio_value = mstr_price * shares_owned
 
 # Display in a table
 st.subheader("Current MSTR Data and Calculated Portfolio")

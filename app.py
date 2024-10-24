@@ -60,6 +60,7 @@ data = {
 df = pd.DataFrame(data)
 st.table(df.style.hide(axis="index"))
 
+
 # Display the historical price chart
 st.subheader('Historical Data')
 fig = go.Figure()

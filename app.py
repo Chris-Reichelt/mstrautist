@@ -59,9 +59,31 @@ data = {
 }
 df = pd.DataFrame(data)
 
+# Custom CSS for table styling: center headers and left-align the data
+table_style = """
+    <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th {
+        text-align: center;
+        font-weight: bold;
+        padding: 8px;
+        background-color: #f2f2f2;
+    }
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+    </style>
+"""
+# Convert DataFrame to HTML and apply the custom style
+table_html = df.to_html(index=False, escape=False)
+
 # Convert DataFrame to a dictionary format that doesn't include the index
 st.subheader("Current MSTR Data and Calculated Portfolio")
-st.write(df.to_html(index=False), unsafe_allow_html=True)
+st.write(table_style + table_html, unsafe_allow_html=True)
 
 # Display the historical price chart
 st.subheader('Historical Data')

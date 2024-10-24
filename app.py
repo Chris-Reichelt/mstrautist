@@ -102,7 +102,7 @@ st.write(table_style + table_html, unsafe_allow_html=True)
 
 #Insider data
 st.subheader("Current Insider Action")
-st.write(table_style + insiders..to_html(index=False, escape=False), unsafe_allow_html=True)
+st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 
 # Display the historical price chart

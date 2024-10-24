@@ -4,11 +4,11 @@ import pandas as pd
 import plotly.graph_objs as go
 
 # Add MSTR logo and a GME mania GIF
-st.image("https://upload.wikimedia.org/wikipedia/commons/7/7b/MicroStrategy_Logo.png", width=300)
+st.image("https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg", width=300)
 st.markdown("<h1 style='text-align: center; color: red;'>MSTR Tracker App 🚀</h1>", unsafe_allow_html=True)
 
 st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your portfolio</h3>", unsafe_allow_html=True)
-st.image("https://media.giphy.com/media/ujr6Zz2jUBaCNmHfT1/giphy.gif", use_column_width=True)
+st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
 # Fetch data
 def get_mstr_data():
@@ -62,11 +62,11 @@ st.plotly_chart(fig)
 # Add a flashy button
 st.markdown("""
 <div style="text-align: center;">
-    <a href="https://www.mstr.com" target="_blank">
+    <a href="https://www.microstrategy.com" target="_blank">
         <button style="background-color: #00BFFF; border-radius: 12px; padding: 15px 32px; font-size: 16px;">Visit MicroStrategy 🚀</button>
     </a>
 </div>
 """, unsafe_allow_html=True)
 
 # Final touch with another meme GIF
-st.image("https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif", use_column_width=True)
+st.image("https://media1.tenor.com/m/pS0e4-_PXXEAAAAC/do-something-michael-saylor.gif", use_column_width=True)

@@ -2,11 +2,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objs as go
-hide_streamlit_style = """
-            <style>
-            footer {visibility: hidden;}
-            </style>
-            """
+
 # Add MSTR logo and a GME mania GIF
 st.image("https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg", width=300)
 st.markdown("<h1 style='text-align: center; color: red;'>🚀 THE Autist MSTR App 🚀</h1>", unsafe_allow_html=True)
@@ -22,7 +18,8 @@ def get_mstr_data():
     hist = mstr.history(period='5y')
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
     shares=mstr.get_shares_full().iloc[-1]
-    return hist, current_price,mrkt_cap,shares,mstr_btc
+    insiders=mstr.insider_roster_holders
+    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
@@ -35,7 +32,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
     return nav_premium
 
 # Get data
-mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc = get_mstr_data()
+mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
 btc_price = get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)
@@ -61,7 +58,7 @@ data = {
     'MSTR BTC Value',  
     'NAV Premium', 
     'Bitcoin per Share', 
-    'Portfolio Value ($USD)'],
+    ],
         'Current Value': [
         f"${mstr_price:,.2f}",
         f"${btc_price:,.2f}",
@@ -70,8 +67,8 @@ data = {
         f"{mstr_btc:,.0f}",
         f"${mstr_btc*btc_price:,.0f}",
         f"{nav_premium_input:.3f}",
-        f"{bitcoin_per_share:,.6f}",
-        f"${portfolio_value:,.2f}"
+        f"{bitcoin_per_share:,.6f}"
+        
     ]
 }
 df = pd.DataFrame(data)
@@ -95,12 +92,18 @@ table_style = """
     }
     </style>
 """
+
 # Convert DataFrame to HTML and apply the custom style
 table_html = df.to_html(index=False, escape=False)
 
 # Convert DataFrame to a dictionary format that doesn't include the index
-st.subheader("Current MSTR Data and Calculated Portfolio")
+st.subheader("Current MSTR Data")
 st.write(table_style + table_html, unsafe_allow_html=True)
+
+#Insider data
+st.subheader("Current Insider Action")
+st.write(table_style + insiders..to_html(index=False, escape=False), unsafe_allow_html=True)
+
 
 # Display the historical price chart
 st.subheader('Historical Data')

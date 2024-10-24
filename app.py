@@ -45,7 +45,7 @@ future_mstr_price = nav_premium * (1 + (nav_premium / 100))
 portfolio_value = mstr_price * shares_owned
 
 # Display in a table
-st.subheader("Current MSTR Data and Calculated Portfolio")
+
 data = {
     'Metric': ['MSTR Price ($USD)', 'Bitcoin Price (USD)', 'MSTR Market Cap (USD)', 'NAV Premium', 'Bitcoin per Share', 'Portfolio Value ($USD)'],
         'Current Value': [
@@ -70,7 +70,7 @@ table_style = """
         text-align: center;
         font-weight: bold;
         padding: 8px;
-        background-color: #f2f2f2;
+        
     }
     td {
         text-align: left;

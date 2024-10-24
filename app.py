@@ -62,7 +62,7 @@ df.reset_index(drop=True, inplace=True)
 
 # Convert DataFrame to a dictionary format that doesn't include the index
 st.subheader("Current MSTR Data and Calculated Portfolio")
-st.table(df.to_dict(orient="records"))
+st.table(df.style.hide_index())
 
 
 # Display the historical price chart

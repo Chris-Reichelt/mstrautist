@@ -58,11 +58,10 @@ data = {
     ]
 }
 df = pd.DataFrame(data)
-df_no_index = df.reset_index(drop=True)
+
 # Convert DataFrame to a dictionary format that doesn't include the index
 st.subheader("Current MSTR Data and Calculated Portfolio")
-st.table(df_no_index)
-
+st.write(df.to_html(index=False), unsafe_allow_html=True)
 
 # Display the historical price chart
 st.subheader('Historical Data')

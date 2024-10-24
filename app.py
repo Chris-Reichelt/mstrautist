@@ -23,7 +23,7 @@ def get_mstr_data():
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
-    btc_price = btc.history(period='1d')['Close'].iloc[-1]
+    btc_price = btc.history(period='1d')['Close']
     return btc_price
 
 def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
@@ -33,9 +33,10 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
 
 # Get data
 mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
-btc_price = get_btc_data()
+btc_price_last = get_btc_data().iloc[-1]
+btc_price=get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
-nav_premium=calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)
+nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 # User inputs
 st.sidebar.header("Input your portfolio details")
 shares_owned = st.sidebar.number_input('Number of MSTR shares owned', value=1, min_value=1)
@@ -61,11 +62,11 @@ data = {
     ],
         'Current Value': [
         f"${mstr_price:,.2f}",
-        f"${btc_price:,.2f}",
+        f"${btc_price_last:,.2f}",
         f"${mrkt_cap:,.2f}",
         f"{shares:,.0f}",
         f"{mstr_btc:,.0f}",
-        f"${mstr_btc*btc_price:,.0f}",
+        f"${mstr_btc*btc_price_last:,.0f}",
         f"{nav_premium_input:.3f}",
         f"{bitcoin_per_share:,.6f}"
         
@@ -108,8 +109,8 @@ st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow
 # Display the historical price chart
 st.subheader('Historical Data')
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'))
-fig.update_layout(title='MSTR Historical Price', xaxis_title='Date', yaxis_title='Price')
+fig.add_trace(go.Scatter(x=mstr_hist.index, y=[mstr_hist['Close'],btc_price['Close']], mode='lines', name='MSTR Price'))
+fig.update_layout(title='MSTR & BTC Price', xaxis_title='Date', yaxis_title='Price')
 st.plotly_chart(fig)
 
 # Add a flashy button

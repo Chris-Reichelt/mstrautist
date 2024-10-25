@@ -47,6 +47,12 @@ if page == "Current MSTR Data":
       nav_premium = (mstr_price  / nav_per_share) 
       return nav_premium
 
+  # Define function to calculate MSTR price based on Bitcoin price and NAV premium
+  def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
+      nav_per_share = btc_price * bitcoin_per_share
+      future_mstr_price = nav_per_share * (1 + nav_premium / 100)  # NAV premium as a percentage
+      return future_mstr_price
+
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
   btc_price_last,btc_hist = get_btc_data()
@@ -216,8 +222,26 @@ elif page == "Financials":
   st.table(mstr)
 
 elif page == "MSTR Price Forecast":
-  st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast Based on Bitcoin or NAV Premium</h1>", unsafe_allow_html=True)
-    # Final touch with another meme GIF
+  st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
+  
+  # User inputs for future Bitcoin price and future NAV premium
+future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
+future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)
+
+# Calculate future MSTR price based on the inputs
+future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)
+
+# Show the current MSTR price for reference
+st.write(f"**Current MSTR Price**: ${mstr_price:,.2f}")
+  
+# Display the future MSTR price in big, orange text
+st.markdown(f"""
+    <div style="text-align: center; color: orange; font-size: 30px;">
+        <strong>Future MSTR Price: ${future_mstr_price:,.2f}</strong>
+    </div>
+""", unsafe_allow_html=True)  
+  
+  # Final touch with another meme GIF
   # Generate a random query string to force video reload
   random_suffix = random.randint(1, 10000)
 

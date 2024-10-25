@@ -32,7 +32,7 @@ if page == "Current MSTR Data":
       mrkt_cap=mstr.fast_info['marketCap']
       hist = mstr.history(period='5y')['Close']
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
-      shares=mstr.get_shares_full().iloc[-1]
+      shares=202635000 #mstr.get_shares_full().iloc[-1]
       insiders=mstr.insider_roster_holders
       return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
 

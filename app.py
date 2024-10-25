@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
-page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast"])
+page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data","Balance Sheet","Income Statement","Cash Flow","Financials" "MSTR Price Forecast"])
 
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
@@ -156,15 +156,6 @@ if page == "Current MSTR Data":
   # Display the plot
   st.plotly_chart(fig)
 
-  # Add a flashy button
-  #st.markdown("""
-  #<div style="text-align: center;">
-  #    <a href="https://www.microstrategy.com" target="_blank">
-  #        <button style="background-color: #00BFFF; border-radius: 12px; padding: 15px 32px; font-size: 16px;">Visit MicroStrategy 🚀</button>
-  #    </a>
-  #</div>
-  #""", unsafe_allow_html=True)
-
   # Final touch with another meme GIF
   # Embed YouTube video with autoplay
   video_url = "https://www.youtube.com/embed/B5if2hthPCs?autoplay=1"
@@ -177,3 +168,11 @@ if page == "Current MSTR Data":
 # The second page for forecasting MSTR price
 elif page == "MSTR Price Forecast":
     st.title("MSTR Price Forecast Based on Bitcoin or NAV Premium")
+
+
+if page == "Balance Sheet":
+  mstr = yf.Ticker('MSTR').quarterly_financials
+  st.dataframe(mstr)
+
+
+

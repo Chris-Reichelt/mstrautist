@@ -5,4 +5,5 @@ plotly
 pytz
 quantstats
 ipython
+requests
 beautifulsoup4

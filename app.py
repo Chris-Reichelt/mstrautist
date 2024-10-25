@@ -36,6 +36,16 @@ def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
     future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
     return future_mstr_price
 
+# Get data
+mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
+btc_price_last,btc_hist = get_btc_data()
+bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
+nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
+CAGR=qs.stats.cagr(mstr_hist)*100
+sharpe=qs.stats.sharpe(mstr_hist)
+sortino=qs.stats.sortino(mstr_hist)
+common=qs.stats.common_sense_ratio(mstr_hist)
+WIN=qs.stats.outlier_win_ratio(mstr_hist)
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
 page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast", "Balance Sheet","Income Statement","Cash Flow","Financials"],index=0)
@@ -55,21 +65,6 @@ if page == "Current MSTR Data":
 
   st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your tendies</h3>", unsafe_allow_html=True)
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
-
-  # Fetch data
-
-
-  # Get data
-  mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
-  btc_price_last,btc_hist = get_btc_data()
-  bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
-  nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-  CAGR=qs.stats.cagr(mstr_hist)*100
-  sharpe=qs.stats.sharpe(mstr_hist)
-  sortino=qs.stats.sortino(mstr_hist)
-  common=qs.stats.common_sense_ratio(mstr_hist)
-  WIN=qs.stats.outlier_win_ratio(mstr_hist)
-
 
   # Display in a table
   data = {
@@ -240,7 +235,7 @@ elif page == "MSTR Price Forecast":
   btc_price_last,btc_hist = get_btc_data()
   bitcoin_per_share =  future_mstrBTC/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-  
+
   # Calculate future MSTR price based on the inputs
   future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)
 

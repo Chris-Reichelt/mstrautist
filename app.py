@@ -85,11 +85,11 @@ if page == "Current MSTR Data":
           f"${mstr_btc*btc_price_last:,.0f}",
           f"{nav_premium:.3f}",
           f"{bitcoin_per_share:,.6f}",
-          f"%{CAGR:,.2f}",
-          f"{sharpe:,.2f}",
-          f"{sortino:,.2f}",
-          f"{common:,.2f}",
-          f"{WIN:,.2f}",
+          f"{CAGR:.2f}%",
+          f"{sharpe:.2f}",
+          f"{sortino:.2f}",
+          f"{common:.2f}",
+          f"{WIN:.2f}",
           
       ]
   }

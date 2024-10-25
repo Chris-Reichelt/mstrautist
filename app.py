@@ -225,6 +225,16 @@ elif page == "Financials":
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
   
+    # Fetch data with error handling
+  mstr_data = get_mstr_data()
+
+  # Check if any value returned is None (i.e., an error occurred)
+  if any(item is None for item in mstr_data):
+      st.error("Failed to fetch MSTR data.")
+  else:
+      # Unpack only if all values are correctly fetched
+      mstr_hist, mstr_price, mrkt_cap, shares, mstr_btc, insiders = mstr_data
+
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
   btc_price_last,btc_hist = get_btc_data()

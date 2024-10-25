@@ -26,6 +26,7 @@ if page == "Current MSTR Data":
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
   # Fetch data
+  @st.cache_data
   def get_mstr_data():
       mstr = yf.Ticker('MSTR')
       mstr_btc=252220
@@ -35,19 +36,20 @@ if page == "Current MSTR Data":
       shares=202635000 #mstr.get_shares_full().iloc[-1]
       insiders=mstr.insider_roster_holders
       return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
-
+  @st.cache_data
   def get_btc_data():
       btc = yf.Ticker('BTC-USD')
       btc_hist = btc.history(period='5y')['Close']
       btc_price = btc.history(period='1d')['Close'].iloc[-1]
       return btc_price,btc_hist
-
+  @st.cache_data
   def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
       nav_per_share = bitcoin_per_share * btc_price_last
       nav_premium = (mstr_price  / nav_per_share) 
       return nav_premium
 
   # Define function to calculate MSTR price based on Bitcoin price and NAV premium
+  @st.cache_data
   def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
       nav_per_share = btc_price * bitcoin_per_share
       future_mstr_price = nav_per_share * (1 + nav_premium / 100)  # NAV premium as a percentage
@@ -228,7 +230,7 @@ elif page == "MSTR Price Forecast":
   btc_price_last,btc_hist = get_btc_data()
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-  
+
   # User inputs for future Bitcoin price and future NAV premium
   future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
   future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)

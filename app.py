@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
-page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data","Balance Sheet","Income Statement","Cash Flow","Financials" "MSTR Price Forecast"])
+page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data","Balance Sheet","Income Statement","Cash Flow","Financials", "MSTR Price Forecast"])
 
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
@@ -172,7 +172,7 @@ elif page == "MSTR Price Forecast":
 
 if page == "Balance Sheet":
   mstr = yf.Ticker('MSTR').quarterly_financials
-  st.dataframe(mstr)
+  st.table(mstr)
 
 
 

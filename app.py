@@ -135,8 +135,11 @@ if page == "Current MSTR Data":
   btc_hist.index = pd.to_datetime(btc_hist.index)
 
   # Use outer join to include all dates (even if one asset has missing data)
-  aligned_data = mstr_hist[['Close']].join(btc_hist[['Close']], lsuffix='_MSTR', rsuffix='_BTC', how='outer')
-
+aligned_data = pd.DataFrame({
+    'MSTR_Close': mstr_hist, 
+    'BTC_Close': btc_hist
+})
+  
   # Forward fill and backward fill to handle missing values
   aligned_data.fillna(method='ffill', inplace=True)
   aligned_data.fillna(method='bfill', inplace=True)

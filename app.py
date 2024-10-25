@@ -6,6 +6,37 @@ from plotly.subplots import make_subplots
 import random
 import quantstats as qs
 
+#Define Functions
+  
+def get_mstr_data():
+    mstr = yf.Ticker('MSTR')
+    mstr_btc=252220
+    mrkt_cap=mstr.fast_info['marketCap']
+    hist = mstr.history(period='5y')['Close']
+    current_price = mstr.history(period='1d')['Close'].iloc[-1]
+    shares=202635000 #mstr.get_shares_full().iloc[-1]
+    insiders=mstr.insider_roster_holders
+    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
+
+def get_btc_data():
+    btc = yf.Ticker('BTC-USD')
+    btc_hist = btc.history(period='5y')['Close']
+    btc_price = btc.history(period='1d')['Close'].iloc[-1]
+    return btc_price,btc_hist
+
+def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
+    nav_per_share = bitcoin_per_share * btc_price_last
+    nav_premium = (mstr_price  / nav_per_share) 
+    return nav_premium
+
+# Define function to calculate MSTR price based on Bitcoin price and NAV premium
+
+def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
+    nav_per_share = btc_price * bitcoin_per_share
+    future_mstr_price = nav_per_share * (1 + nav_premium / 100)  # NAV premium as a percentage
+    return future_mstr_price
+
+
 # Page selection: First page for Current MSTR data, Second page for forecasting
 page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast", "Balance Sheet","Income Statement","Cash Flow","Financials"],index=0)
 
@@ -26,34 +57,7 @@ if page == "Current MSTR Data":
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
   # Fetch data
-  @st.cache_data
-  def get_mstr_data():
-      mstr = yf.Ticker('MSTR')
-      mstr_btc=252220
-      mrkt_cap=mstr.fast_info['marketCap']
-      hist = mstr.history(period='5y')['Close']
-      current_price = mstr.history(period='1d')['Close'].iloc[-1]
-      shares=202635000 #mstr.get_shares_full().iloc[-1]
-      insiders=mstr.insider_roster_holders
-      return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
-  @st.cache_data
-  def get_btc_data():
-      btc = yf.Ticker('BTC-USD')
-      btc_hist = btc.history(period='5y')['Close']
-      btc_price = btc.history(period='1d')['Close'].iloc[-1]
-      return btc_price,btc_hist
-  @st.cache_data
-  def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
-      nav_per_share = bitcoin_per_share * btc_price_last
-      nav_premium = (mstr_price  / nav_per_share) 
-      return nav_premium
 
-  # Define function to calculate MSTR price based on Bitcoin price and NAV premium
-  @st.cache_data
-  def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
-      nav_per_share = btc_price * bitcoin_per_share
-      future_mstr_price = nav_per_share * (1 + nav_premium / 100)  # NAV premium as a percentage
-      return future_mstr_price
 
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
@@ -224,16 +228,6 @@ elif page == "Financials":
 
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
-  
-    # Fetch data with error handling
-  mstr_data = get_mstr_data()
-
-  # Check if any value returned is None (i.e., an error occurred)
-  if any(item is None for item in mstr_data):
-      st.error("Failed to fetch MSTR data.")
-  else:
-      # Unpack only if all values are correctly fetched
-      mstr_hist, mstr_price, mrkt_cap, shares, mstr_btc, insiders = mstr_data
 
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()

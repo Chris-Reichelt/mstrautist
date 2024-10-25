@@ -154,7 +154,7 @@ if page == "Current MSTR Data":
   #Insider data
   insiders = insiders.drop('URL', axis=1)
   st.markdown("<h2 style='color: red; text-align: center;'>Current Insider Action</h2>", unsafe_allow_html=True)
-  st.write("Total number of full time employees: {employees}")
+  st.write("Total number of full time employees:", employees)
   st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 

@@ -144,37 +144,38 @@ if page == "Current MSTR Data":
   aligned_data.fillna(method='ffill', inplace=True)
   aligned_data.fillna(method='bfill', inplace=True)
 
-  # Plot with secondary y-axis
-  fig = make_subplots(specs=[[{"secondary_y": True}]])
+# Plot with secondary y-axis
+fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-  # Add MSTR price trace (secondary y-axis)
-  fig.add_trace(
-      go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'),
-      secondary_y=True
-  )
+# Add MSTR price trace (secondary y-axis)
+fig.add_trace(
+    go.Scatter(x=aligned_data.index, y=aligned_data['MSTR_Close'], mode='lines', name='MSTR Price'),
+    secondary_y=True
+)
 
-  # Add BTC price trace (primary y-axis)
-  fig.add_trace(
-      go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')),
-      secondary_y=False
-  )
+# Add BTC price trace (primary y-axis)
+fig.add_trace(
+    go.Scatter(x=aligned_data.index, y=aligned_data['BTC_Close'], mode='lines', name='BTC Price', line=dict(color='orange')),
+    secondary_y=False
+)
 
-  # Update layout with titles
-  fig.update_layout(
-      title_text="MSTR & BTC Prices",
-      xaxis_title="Date",
-      yaxis_title="BTC Price",
-      yaxis2_title="MSTR Price",  # Label for secondary y-axis
-      legend_title="Assets",
-      width=1000, 
-      height=600  
-  )
+# Update layout with titles
+fig.update_layout(
+    title_text="MSTR & BTC Prices",
+    xaxis_title="Date",
+    yaxis_title="BTC Price",
+    yaxis2_title="MSTR Price",  # Label for secondary y-axis
+    legend_title="Assets",
+    width=1000, 
+    height=600  
+)
 
-  # Update y-axes titles
-  fig.update_yaxes(title_text="BTC Price", secondary_y=False)
-  fig.update_yaxes(title_text="MSTR Price", secondary_y=True)
-  # Display the plot
-  st.plotly_chart(fig)
+# Update y-axes titles
+fig.update_yaxes(title_text="BTC Price", secondary_y=False)
+fig.update_yaxes(title_text="MSTR Price", secondary_y=True)
+
+# Display the plot
+st.plotly_chart(fig)
 
 
   # Final touch with another meme GIF

@@ -18,7 +18,8 @@ def get_mstr_data():
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
     shares=mstr.info['impliedSharesOutstanding'] 
     insiders=mstr.insider_roster_holders
-    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
+    employees=mstr.info['fullTimeEmployees']
+    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
@@ -153,6 +154,7 @@ if page == "Current MSTR Data":
   #Insider data
   insiders = insiders.drop('URL', axis=1)
   st.markdown("<h2 style='color: red; text-align: center;'>Current Insider Action</h2>", unsafe_allow_html=True)
+  st.write("Total number of full time employees: {employees}")
   st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 

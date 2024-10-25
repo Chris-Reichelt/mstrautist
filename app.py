@@ -144,7 +144,7 @@ fig.update_layout(
     yaxis_title="BTC Price",
     yaxis2_title="MSTR Price",  # Label for secondary y-axis
     legend_title="Assets",
-    width=1000,  # Set the width of the plot (adjust as needed)
+    width=1200,  # Set the width of the plot (adjust as needed)
     height=600  # Set the height of the plot (adjust as needed)
 )
 

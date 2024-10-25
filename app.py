@@ -58,7 +58,7 @@ def get_mstr_btc():
     return mstr_btc      
 
 # Calculate data used througout
-mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
+mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders,employees = get_mstr_data()
 btc_price_last,btc_hist = get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)

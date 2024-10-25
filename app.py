@@ -42,7 +42,7 @@ nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 st.sidebar.header("Input your portfolio details")
 shares_owned = st.sidebar.number_input('Number of MSTR shares owned', value=1, min_value=1)
 #future_btc_price = st.sidebar.number_input('Future BTC Price', value=float(btc_price), min_value=float(1.0))
-nav_premium_input = st.sidebar.number_input('NAV Premium ', value=float(calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share)))
+nav_premium_input = st.sidebar.number_input('NAV Premium ', value=float(calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)))
 
 # Calculate future MSTR price and portfolio value
 #future_nav_per_share = future_btc_price * bitcoin_per_share

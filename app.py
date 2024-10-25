@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import random
+import quantstats as qs
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
 page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast", "Balance Sheet","Income Statement","Cash Flow","Financials"],index=0)
@@ -52,6 +53,11 @@ if page == "Current MSTR Data":
   btc_price=get_btc_data()
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
+  CAGR=qs.stats.cagr(hist)*100
+  sharpe=qs.stats.sharpe(hist)
+  sortino=qs.stats.sortino(hist)
+  common=qs.stats.common_sense_ratio(mstr)
+  WIN=qs.stats.outlier_win_ratio(hist)
 
   # Display in a table
 
@@ -63,7 +69,12 @@ if page == "Current MSTR Data":
       'MSTR BTC Treasury',
       'MSTR BTC Value',  
       'NAV Premium', 
-      'Bitcoin per Share', 
+      'Bitcoin per Share',
+      'CAGR (5y)',
+      'Sharpe (5y)',
+      'Sortino (5y)',
+      'Common Sense Ratio',
+      'Outlier Win Ratio' 
       ],
           'Current Value': [
           f"${mstr_price:,.2f}",
@@ -73,7 +84,12 @@ if page == "Current MSTR Data":
           f"{mstr_btc:,.0f}",
           f"${mstr_btc*btc_price_last:,.0f}",
           f"{nav_premium:.3f}",
-          f"{bitcoin_per_share:,.6f}"
+          f"{bitcoin_per_share:,.6f}",
+          f"{CAGR:,.2f}%",
+          f"{sharpe:,.2f}",
+          f"{sortino:,.2f}",
+          f"{common:,.2f}",
+          f"{WIN:,.2f}",
           
       ]
   }

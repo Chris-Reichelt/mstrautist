@@ -102,6 +102,8 @@ st.subheader("Current MSTR Data")
 st.write(table_style + table_html, unsafe_allow_html=True)
 
 #Insider data
+insiders = insiders.drop('URL', axis=1)
+
 st.subheader("Current Insider Action")
 st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
@@ -110,6 +112,8 @@ st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow
 st.subheader('Historical Data')
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'))
+# Add BTC price trace
+fig.add_trace(go.Scatter(x=btc_price.index, y=btc_price['Close'], mode='lines', name='BTC Price', line=dict(color='orange')))
 fig.update_layout(title='MSTR & BTC Price', xaxis_title='Date', yaxis_title='Price')
 st.plotly_chart(fig)
 

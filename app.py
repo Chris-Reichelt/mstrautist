@@ -112,8 +112,12 @@ st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow
 # Join MSTR and BTC data on the date index
 aligned_data = mstr_hist[['Close']].join(btc_hist[['Close']], lsuffix='_MSTR', rsuffix='_BTC', how='inner')
 
-# Check if the alignment worked properly (optional)
-# st.write(aligned_data)
+# Display the aligned data in Streamlit for debugging
+st.write(aligned_data)
+
+# Normalize the data for better comparison
+aligned_data['Close_MSTR'] = aligned_data['Close_MSTR'] / aligned_data['Close_MSTR'].max()
+aligned_data['Close_BTC'] = aligned_data['Close_BTC'] / aligned_data['Close_BTC'].max()
 
 # Display the historical price chart for the aligned data
 st.subheader('MSTR & BTC Historical Data')
@@ -127,12 +131,13 @@ fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode
 
 # Update the layout for the chart
 fig.update_layout(
-    title='MSTR & BTC Aligned Prices',
+    title='MSTR & BTC Aligned Prices (Normalized)',
     xaxis_title='Date',
-    yaxis_title='Price',
+    yaxis_title='Normalized Price',
     legend_title='Assets',
     hovermode='x unified'
 )
+
 st.plotly_chart(fig)
 
 # Add a flashy button

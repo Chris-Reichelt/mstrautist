@@ -119,13 +119,13 @@ if page == "Current MSTR Data":
   table_html = df.to_html(index=False, escape=False)
 
   # Convert DataFrame to a dictionary format that doesn't include the index
-  st.subheader("Current MSTR Data")
+  st.markdown("<h2 style='color: red; text-align: center;'>Current MSTR Data</h2>", unsafe_allow_html=True)
   st.write(table_style + table_html, unsafe_allow_html=True)
 
   #Insider data
   insiders = insiders.drop('URL', axis=1)
 
-  st.subheader("Current Insider Action")
+  st.markdown("<h2 style='color: red; text-align: center;'>Current Insider Action</h2>", unsafe_allow_html=True)
   st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 
@@ -176,7 +176,6 @@ if page == "Current MSTR Data":
 
   # Display the plot
   st.plotly_chart(fig)
-
 
   # Final touch with another meme GIF
   # Generate a random query string to force video reload

@@ -53,14 +53,14 @@ if page == "Current MSTR Data":
   btc_price=get_btc_data()
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-  CAGR=qs.stats.cagr(hist)*100
-  sharpe=qs.stats.sharpe(hist)
-  sortino=qs.stats.sortino(hist)
-  common=qs.stats.common_sense_ratio(mstr)
-  WIN=qs.stats.outlier_win_ratio(hist)
+  CAGR=qs.stats.cagr(msrt_hist)*100
+  sharpe=qs.stats.sharpe(mstr_hist)
+  sortino=qs.stats.sortino(mstr_hist)
+  common=qs.stats.common_sense_ratio(mstr_hist)
+  WIN=qs.stats.outlier_win_ratio(mstr_hist)
 
   # Display in a table
-
+  #Blah 
   data = {
       'Metric': ['MSTR Price (USD)', 
       'Bitcoin Price (USD)', 

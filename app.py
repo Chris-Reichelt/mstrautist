@@ -109,6 +109,7 @@ insiders = insiders.drop('URL', axis=1)
 st.subheader("Current Insider Action")
 st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
+
 # Display the historical price chart for the aligned data
 # Ensure the 'Date' column is the index for both DataFrames
 mstr_hist.index = pd.to_datetime(mstr_hist.index)
@@ -138,11 +139,13 @@ fig.add_trace(
 
 # Update layout with titles
 fig.update_layout(
-    title_text="MSTR & BTC Prices with Dual Y-Axes",
+    title_text="MSTR & BTC Prices",
     xaxis_title="Date",
     yaxis_title="BTC Price",
     yaxis2_title="MSTR Price",  # Label for secondary y-axis
     legend_title="Assets"
+    width=1000,  # Set the width of the plot (adjust as needed)
+    height=600,  # Set the height of the plot (adjust as needed)
 )
 
 # Update y-axes titles

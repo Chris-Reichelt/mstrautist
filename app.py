@@ -27,8 +27,8 @@ def get_btc_data():
     btc_price = btc.history(period='1d')['Close'].iloc[-1]
     return btc_price,btc_hist
 
-def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
-    nav_per_share = bitcoin_per_share * btc_price
+def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
+    nav_per_share = bitcoin_per_share * btc_price_last
     nav_premium = (mstr_price  / nav_per_share) 
     return nav_premium
 

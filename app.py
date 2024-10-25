@@ -44,10 +44,6 @@ if page == "Current MSTR Data":
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 
-
-
-
-
   # Display in a table
 
   data = {
@@ -67,7 +63,7 @@ if page == "Current MSTR Data":
           f"{shares:,.0f}",
           f"{mstr_btc:,.0f}",
           f"${mstr_btc*btc_price_last:,.0f}",
-          f"{nav_premium_input:.3f}",
+          f"{nav_premium:.3f}",
           f"{bitcoin_per_share:,.6f}"
           
       ]

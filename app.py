@@ -228,7 +228,7 @@ elif page == "Financials":
 
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
-
+  st.write("Assumes no change from current BTC/share")
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
   btc_price_last,btc_hist = get_btc_data()

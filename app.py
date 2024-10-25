@@ -2,6 +2,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 
 # Add MSTR logo and a GME mania GIF
 st.image("https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg", width=300)
@@ -115,27 +116,38 @@ btc_hist.index = pd.to_datetime(btc_hist.index)
 
 # Use outer join to include all dates (even if one asset has missing data)
 aligned_data = mstr_hist[['Close']].join(btc_hist[['Close']], lsuffix='_MSTR', rsuffix='_BTC', how='outer')
-# Inspect aligned data after join and fill
-st.write(aligned_data)
 
-st.subheader('MSTR & BTC Historical Data')
-fig = go.Figure()
+# Forward fill and backward fill to handle missing values
+aligned_data.fillna(method='ffill', inplace=True)
+aligned_data.fillna(method='bfill', inplace=True)
 
-# Add MSTR price trace
-fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'))
+# Plot with secondary y-axis
+fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-# Add BTC price trace
-fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')))
-
-# Update the layout
-fig.update_layout(
-    title='MSTR & BTC Aligned Prices',
-    xaxis_title='Date',
-    yaxis_title='Price',
-    legend_title='Assets',
-    hovermode='x unified'
+# Add MSTR price trace (secondary y-axis)
+fig.add_trace(
+    go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'),
+    secondary_y=True
 )
 
+# Add BTC price trace (primary y-axis)
+fig.add_trace(
+    go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')),
+    secondary_y=False
+)
+
+# Update layout with titles
+fig.update_layout(
+    title_text="MSTR & BTC Prices with Dual Y-Axes",
+    xaxis_title="Date",
+    yaxis_title="BTC Price",
+    yaxis2_title="MSTR Price",  # Label for secondary y-axis
+    legend_title="Assets"
+)
+
+# Update y-axes titles
+fig.update_yaxes(title_text="BTC Price", secondary_y=False)
+fig.update_yaxes(title_text="MSTR Price", secondary_y=True)
 # Display the plot
 st.plotly_chart(fig)
 

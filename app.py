@@ -188,7 +188,7 @@ if page == "Current MSTR Data":
   # Display the plot
   st.plotly_chart(fig)
 
-  st.markdown("<h4 style='text-align: center; color: red;'>Not financial advice. I am but a smooth brained autist.</h4>", unsafe_allow_html=True)
+  st.markdown("<h4 style='text-align: center; color: red;'>Not financial advice. I smooth brain autist.</h4>", unsafe_allow_html=True)
 
 
   # Final touch with another meme GIF

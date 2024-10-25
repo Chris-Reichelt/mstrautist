@@ -53,7 +53,7 @@ if page == "Current MSTR Data":
   btc_price=get_btc_data()
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-  CAGR=qs.stats.cagr(msrt_hist)*100
+  CAGR=qs.stats.cagr(mstr_hist)*100
   sharpe=qs.stats.sharpe(mstr_hist)
   sortino=qs.stats.sortino(mstr_hist)
   common=qs.stats.common_sense_ratio(mstr_hist)

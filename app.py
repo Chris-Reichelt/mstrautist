@@ -165,26 +165,28 @@ if page == "Current MSTR Data":
       <iframe width="560" height="315" src="{video_url}" 
       frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   """, unsafe_allow_html=True)
-# The second page for forecasting MSTR price
-elif page == "MSTR Price Forecast":
-    st.title("MSTR Price Forecast Based on Bitcoin or NAV Premium")
 
-
-if page == "Balance Sheet":
+elif page == "Balance Sheet":
+  st.markdown("<h1 style='text-align: center; color: red;'>Balance Sheet</h1>", unsafe_allow_html=True)
   mstr = yf.Ticker('MSTR').quarterly_balance_sheet
   st.table(mstr)
 
-if page == "Income Statement":
+elif page == "Income Statement":
+  st.markdown("<h1 style='text-align: center; color: red;'>Income Statement</h1>", unsafe_allow_html=True)
   mstr = yf.Ticker('MSTR').quarterly_income_stmt
   st.table(mstr)
 
-if page == "Cash Flow":
-  mstr = yf.Ticker('MSTR').quarterly_income_stmt
+elif page == "Cash Flow":
+  st.markdown("<h1 style='text-align: center; color: red;'>Cash Flow</h1>", unsafe_allow_html=True)
+  mstr = yf.Ticker('MSTR').quarterly_cashflow
   st.table(mstr)
 
-if page == "Financials":
+elif page == "Financials":
+  st.markdown("<h1 style='text-align: center; color: red;'>Financials</h1>", unsafe_allow_html=True)
   mstr = yf.Ticker('MSTR').quarterly_financials
   st.table(mstr)
-
+# The second page for forecasting MSTR price
+elif page == "MSTR Price Forecast":
+  st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast Based on Bitcoin or NAV Premium</h1>", unsafe_allow_html=True)
 
 

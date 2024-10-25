@@ -38,7 +38,7 @@ if page == "Current MSTR Data":
 
   def get_btc_data():
       btc = yf.Ticker('BTC-USD')
-      btc_hist = btc.history(period='5y')
+      btc_hist = btc.history(period='5y')['Close']
       btc_price = btc.history(period='1d')['Close'].iloc[-1]
       return btc_price,btc_hist
 

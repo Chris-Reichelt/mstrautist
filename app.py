@@ -33,7 +33,7 @@ def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
 
 def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
     nav_per_share = btc_price * bitcoin_per_share
-    future_mstr_price = nav_per_share * (1 + nav_premium / 100)  # NAV premium as a percentage
+    future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
     return future_mstr_price
 
 

@@ -58,7 +58,7 @@ if page == "Current MSTR Data":
   sortino=qs.stats.sortino(mstr_hist)
   common=qs.stats.common_sense_ratio(mstr_hist)
   WIN=qs.stats.outlier_win_ratio(mstr_hist)
-
+  st.write(mstr_hist)
   # Display in a table
   data = {
       'Metric': ['MSTR Price (USD)', 

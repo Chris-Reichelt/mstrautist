@@ -9,7 +9,15 @@ page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price F
 
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
-  st.image("https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg", width=300)
+st.markdown("""
+    <div style="text-align: center;">
+        <a href="https://www.microstrategy.com" target="_blank">
+            <img src="https://images.contentstack.io/v3/assets/bltb564490bc5201f31/blt095f79f0870f355f/65148375f8d6e8655c49519a/microstrategy-logo_red.svg" 
+            alt="MicroStrategy Logo" style="width:400px;">
+        </a>
+    </div>
+""", unsafe_allow_html=True)  
+  
   st.markdown("<h1 style='text-align: center; color: red;'>🚀 THE Autist MSTR App 🚀</h1>", unsafe_allow_html=True)
 
   st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your portfolio</h3>", unsafe_allow_html=True)
@@ -149,13 +157,13 @@ if page == "Current MSTR Data":
   st.plotly_chart(fig)
 
   # Add a flashy button
-  st.markdown("""
-  <div style="text-align: center;">
-      <a href="https://www.microstrategy.com" target="_blank">
-          <button style="background-color: #00BFFF; border-radius: 12px; padding: 15px 32px; font-size: 16px;">Visit MicroStrategy 🚀</button>
-      </a>
-  </div>
-  """, unsafe_allow_html=True)
+  #st.markdown("""
+  #<div style="text-align: center;">
+  #    <a href="https://www.microstrategy.com" target="_blank">
+  #        <button style="background-color: #00BFFF; border-radius: 12px; padding: 15px 32px; font-size: 16px;">Visit MicroStrategy 🚀</button>
+  #    </a>
+  #</div>
+  #""", unsafe_allow_html=True)
 
   # Final touch with another meme GIF
   # Embed YouTube video with autoplay

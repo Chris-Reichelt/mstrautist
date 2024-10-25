@@ -22,7 +22,7 @@ if page == "Current MSTR Data":
   
   st.markdown("<h1 style='text-align: center; color: red;'>🚀 THE Autist MSTR App 🚀</h1>", unsafe_allow_html=True)
 
-  st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your portfolio</h3>", unsafe_allow_html=True)
+  st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your future may hold...</h3>", unsafe_allow_html=True)
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
   # Fetch data
@@ -176,6 +176,9 @@ if page == "Current MSTR Data":
 
   # Display the plot
   st.plotly_chart(fig)
+
+    st.markdown("<h2 style='text-align: center; color: red;'>Not financial advice. I am but a smooth brained autist.</h2>", unsafe_allow_html=True)
+
 
   # Final touch with another meme GIF
   # Generate a random query string to force video reload

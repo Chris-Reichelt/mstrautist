@@ -30,7 +30,7 @@ if page == "Current MSTR Data":
       mstr = yf.Ticker('MSTR')
       mstr_btc=252220
       mrkt_cap=mstr.fast_info['marketCap']
-      hist = mstr.history(period='5y')
+      hist = mstr.history(period='5y')['Close']
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
       shares=mstr.get_shares_full().iloc[-1]
       insiders=mstr.insider_roster_holders
@@ -58,9 +58,8 @@ if page == "Current MSTR Data":
   sortino=qs.stats.sortino(mstr_hist)
   common=qs.stats.common_sense_ratio(mstr_hist)
   WIN=qs.stats.outlier_win_ratio(mstr_hist)
-  st.write(CAGR)
+
   # Display in a table
-  #Blah 
   data = {
       'Metric': ['MSTR Price (USD)', 
       'Bitcoin Price (USD)', 

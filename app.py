@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
+import random
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
 page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data","Balance Sheet","Income Statement","Cash Flow","Financials", "MSTR Price Forecast"],index=0)
@@ -157,13 +158,18 @@ if page == "Current MSTR Data":
   st.plotly_chart(fig)
 
   # Final touch with another meme GIF
-  # Embed YouTube video with autoplay
-  video_url = "https://www.youtube.com/embed/B5if2hthPCs?autoplay=1"
+  # Generate a random query string to force video reload
+  random_suffix = random.randint(1, 10000)
 
-  # Use HTML to embed the video in an iframe
+  # Video URL with autoplay and random suffix to force reload
+  video_url = f"https://www.youtube.com/embed/B5if2hthPCs?autoplay=1&rand={random_suffix}"
+
+  # Center and embed the YouTube video with autoplay
   st.markdown(f"""
-      <iframe width="560" height="315" src="{video_url}" 
-      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <div style="text-align: center;">
+          <iframe width="560" height="315" src="{video_url}" 
+          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
   """, unsafe_allow_html=True)
 
 elif page == "Balance Sheet":

@@ -5,6 +5,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import random
 import quantstats as qs
+from bs4 import BeautifulSoup
 
 #Define Functions
   

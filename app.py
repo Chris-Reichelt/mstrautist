@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 import random
 
 # Page selection: First page for Current MSTR data, Second page for forecasting
-page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data","Balance Sheet","Income Statement","Cash Flow","Financials", "MSTR Price Forecast"],index=0)
+page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast", "Balance Sheet","Income Statement","Cash Flow","Financials"],index=0)
 
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
@@ -191,8 +191,21 @@ elif page == "Financials":
   st.markdown("<h1 style='text-align: center; color: red;'>Financials</h1>", unsafe_allow_html=True)
   mstr = yf.Ticker('MSTR').quarterly_financials
   st.table(mstr)
-# The second page for forecasting MSTR price
+
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast Based on Bitcoin or NAV Premium</h1>", unsafe_allow_html=True)
+    # Final touch with another meme GIF
+  # Generate a random query string to force video reload
+  random_suffix = random.randint(1, 10000)
 
+  # Video URL with autoplay and random suffix to force reload
+  video_url = f"https://www.youtube.com/embed/wIhTGB3wqV0?autoplay=1&rand={random_suffix}"
+
+  # Center and embed the YouTube video with autoplay
+  st.markdown(f"""
+      <div style="text-align: center;">
+          <iframe width="560" height="315" src="{video_url}" 
+          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+  """, unsafe_allow_html=True)
 

@@ -225,21 +225,21 @@ elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
   
   # User inputs for future Bitcoin price and future NAV premium
-future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
-future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)
+  future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
+  future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)
 
-# Calculate future MSTR price based on the inputs
-future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)
+  # Calculate future MSTR price based on the inputs
+  future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)
 
-# Show the current MSTR price for reference
-st.write(f"**Current MSTR Price**: ${mstr_price:,.2f}")
-  
-# Display the future MSTR price in big, orange text
-st.markdown(f"""
-    <div style="text-align: center; color: orange; font-size: 30px;">
-        <strong>Future MSTR Price: ${future_mstr_price:,.2f}</strong>
-    </div>
-""", unsafe_allow_html=True)  
+  # Show the current MSTR price for reference
+  st.write(f"**Current MSTR Price**: ${mstr_price:,.2f}")
+    
+  # Display the future MSTR price in big, orange text
+  st.markdown(f"""
+      <div style="text-align: center; color: orange; font-size: 30px;">
+          <strong>Future MSTR Price: ${future_mstr_price:,.2f}</strong>
+      </div>
+  """, unsafe_allow_html=True)  
   
   # Final touch with another meme GIF
   # Generate a random query string to force video reload

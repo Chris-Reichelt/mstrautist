@@ -53,7 +53,6 @@ def get_mstr_btc():
             mstr_btc = int(cells[4].text.replace(",", "").strip())
     except Exception as e:
         print(f"Error fetching BTC holdings: {e}")
-
   return mstr_btc      
 
 # Calculate data used througout

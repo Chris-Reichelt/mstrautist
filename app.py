@@ -109,13 +109,30 @@ st.subheader("Current Insider Action")
 st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 
-# Display the historical price chart
-st.subheader('Historical Data')
+# Join MSTR and BTC data on the date index
+aligned_data = mstr_hist[['Close']].join(btc_hist[['Close']], lsuffix='_MSTR', rsuffix='_BTC', how='inner')
+
+# Check if the alignment worked properly (optional)
+# st.write(aligned_data)
+
+# Display the historical price chart for the aligned data
+st.subheader('MSTR & BTC Historical Data')
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'))
-# Add BTC price trace
-fig.add_trace(go.Scatter(x=btc_price.index, y=btc_hist['Close'], mode='lines', name='BTC Price', line=dict(color='orange')))
-fig.update_layout(title='MSTR & BTC Price', xaxis_title='Date', yaxis_title='Price')
+
+# Add MSTR price trace (from aligned data)
+fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'))
+
+# Add BTC price trace (from aligned data)
+fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')))
+
+# Update the layout for the chart
+fig.update_layout(
+    title='MSTR & BTC Aligned Prices',
+    xaxis_title='Date',
+    yaxis_title='Price',
+    legend_title='Assets',
+    hovermode='x unified'
+)
 st.plotly_chart(fig)
 
 # Add a flashy button

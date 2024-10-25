@@ -114,9 +114,6 @@ st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow
 st.subheader('MSTR & BTC Historical Data')
 fig = go.Figure()
 
-# Create figure with secondary y-axis
-fig = make_subplots(specs=[[{"secondary_y": True}]])
-
 # Add MSTR price trace (on primary y-axis)
 fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'), secondary_y=False)
 

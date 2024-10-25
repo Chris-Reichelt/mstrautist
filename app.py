@@ -171,6 +171,18 @@ elif page == "MSTR Price Forecast":
 
 
 if page == "Balance Sheet":
+  mstr = yf.Ticker('MSTR').quarterly_balance_sheet
+  st.table(mstr)
+
+if page == "Income Statement":
+  mstr = yf.Ticker('MSTR').quarterly_income_stmt
+  st.table(mstr)
+
+if page == "Cash Flow":
+  mstr = yf.Ticker('MSTR').quarterly_income_stmt
+  st.table(mstr)
+
+if page == "Financials":
   mstr = yf.Ticker('MSTR').quarterly_financials
   st.table(mstr)
 

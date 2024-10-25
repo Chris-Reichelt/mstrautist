@@ -23,8 +23,9 @@ def get_mstr_data():
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
-    btc_price = btc.history(period='1d')['Close']
-    return btc_price
+    btc_hist = btc.history(period='5y')
+    btc_price = btc.history(period='1d')['Close'].iloc[-1]
+    return btc_price,btc_hist
 
 def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
     nav_per_share = bitcoin_per_share * btc_price
@@ -33,7 +34,7 @@ def calculate_nav_premium(mstr_price, btc_price, bitcoin_per_share):
 
 # Get data
 mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
-btc_price_last = get_btc_data().iloc[-1]
+btc_price_last,btc_hist = get_btc_data()
 btc_price=get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
@@ -113,7 +114,7 @@ st.subheader('Historical Data')
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'))
 # Add BTC price trace
-fig.add_trace(go.Scatter(x=btc_price.index, y=btc_price['Close'], mode='lines', name='BTC Price', line=dict(color='orange')))
+fig.add_trace(go.Scatter(x=btc_price.index, y=btc_hist['Close'], mode='lines', name='BTC Price', line=dict(color='orange')))
 fig.update_layout(title='MSTR & BTC Price', xaxis_title='Date', yaxis_title='Price')
 st.plotly_chart(fig)
 

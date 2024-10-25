@@ -15,9 +15,6 @@ if page == "Current MSTR Data":
   st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your portfolio</h3>", unsafe_allow_html=True)
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
-  # Page selection: First page for Current MSTR data, Second page for forecasting
-  page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast"])
-
   # Fetch data
   def get_mstr_data():
       mstr = yf.Ticker('MSTR')

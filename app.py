@@ -144,8 +144,8 @@ fig.update_layout(
     yaxis_title="BTC Price",
     yaxis2_title="MSTR Price",  # Label for secondary y-axis
     legend_title="Assets",
-    width=800,  # Set the width of the plot (adjust as needed)
-    height=600  # Set the height of the plot (adjust as needed)
+    width=1000, 
+    height=600  
 )
 
 # Update y-axes titles
@@ -164,4 +164,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Final touch with another meme GIF
-st.image("https://media1.tenor.com/m/pS0e4-_PXXEAAAAC/do-something-michael-saylor.gif", use_column_width=True)
+# Embed YouTube video with autoplay
+video_url = "https://www.youtube.com/embed/B5if2hthPCs?autoplay=1"
+
+# Use HTML to embed the video in an iframe
+st.markdown(f"""
+    <iframe width="560" height="315" src="{video_url}" 
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+""", unsafe_allow_html=True)
+#st.image("https://media1.tenor.com/m/pS0e4-_PXXEAAAAC/do-something-michael-saylor.gif", use_column_width=True)

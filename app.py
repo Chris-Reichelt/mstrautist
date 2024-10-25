@@ -118,7 +118,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(x=mstr_hist.index, y=mstr_hist['Close'], mode='lines', name='MSTR Price'), secondary_y=False)
 
 # Add BTC price trace (on secondary y-axis)
-fig.add_trace(go.Scatter(x=btc_hist.index, y=btc_hist['Close'], mode='lines', name='BTC Price', line=dict(color='orange')), secondary_y=True)
+#fig.add_trace(go.Scatter(x=btc_hist.index, y=btc_hist['Close'], mode='lines', name='BTC Price', line=dict(color='orange')), secondary_y=True)
 
 # Update layout
 fig.update_layout(

@@ -50,7 +50,7 @@ if page == "Current MSTR Data":
   # Get data
   mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
   btc_price_last,btc_hist = get_btc_data()
-  btc_price=get_btc_data()
+  #btc_price=get_btc_data()
   bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
   nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
   CAGR=qs.stats.cagr(mstr_hist)*100
@@ -58,7 +58,8 @@ if page == "Current MSTR Data":
   sortino=qs.stats.sortino(mstr_hist)
   common=qs.stats.common_sense_ratio(mstr_hist)
   WIN=qs.stats.outlier_win_ratio(mstr_hist)
-  st.write(mstr_hist)
+
+
   # Display in a table
   data = {
       'Metric': ['MSTR Price (USD)', 
@@ -171,6 +172,7 @@ if page == "Current MSTR Data":
   fig.update_yaxes(title_text="MSTR Price", secondary_y=True)
   # Display the plot
   st.plotly_chart(fig)
+
 
   # Final touch with another meme GIF
   # Generate a random query string to force video reload

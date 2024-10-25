@@ -221,7 +221,7 @@ elif page == "Financials":
   st.table(mstr)
 
 elif page == "MSTR Price Forecast":
-  st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
+  st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast</h1>", unsafe_allow_html=True)
 
   # User inputs for future Bitcoin price and future NAV premium
   future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)

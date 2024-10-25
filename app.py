@@ -227,18 +227,19 @@ elif page == "Financials":
 
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>Price Forecast Based on Bitcoin or NAV </h1>", unsafe_allow_html=True)
-  
-  # Get data
-  mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
-  btc_price_last,btc_hist = get_btc_data()
-  bitcoin_per_share =  future_mstrBTC/shares  # Update this with the latest value
-  nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 
   # User inputs for future Bitcoin price and future NAV premium
   future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
   future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)
   st.write("My wife's boyfriend said this will go up.")
   future_mstrBTC = st.number_input('Enter future MSTR Bitcoin held', value=mstr_btc, min_value=0)
+
+    
+  # Get data
+  mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
+  btc_price_last,btc_hist = get_btc_data()
+  bitcoin_per_share =  future_mstrBTC/shares  # Update this with the latest value
+  nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
   
   # Calculate future MSTR price based on the inputs
   future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)

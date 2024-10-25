@@ -115,29 +115,30 @@ aligned_data = mstr_hist[['Close']].join(btc_hist[['Close']], lsuffix='_MSTR', r
 # Display the aligned data in Streamlit for debugging
 st.write(aligned_data)
 
-# Normalize the data for better comparison
-aligned_data['Close_MSTR'] = aligned_data['Close_MSTR'] / aligned_data['Close_MSTR'].max()
-aligned_data['Close_BTC'] = aligned_data['Close_BTC'] / aligned_data['Close_BTC'].max()
-
 # Display the historical price chart for the aligned data
 st.subheader('MSTR & BTC Historical Data')
 fig = go.Figure()
 
-# Add MSTR price trace (from aligned data)
-fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'))
+# Create figure with secondary y-axis
+fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-# Add BTC price trace (from aligned data)
-fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')))
+# Add MSTR price trace (on primary y-axis)
+fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_MSTR'], mode='lines', name='MSTR Price'), secondary_y=False)
 
-# Update the layout for the chart
+# Add BTC price trace (on secondary y-axis)
+fig.add_trace(go.Scatter(x=aligned_data.index, y=aligned_data['Close_BTC'], mode='lines', name='BTC Price', line=dict(color='orange')), secondary_y=True)
+
+# Update layout
 fig.update_layout(
-    title='MSTR & BTC Aligned Prices (Normalized)',
-    xaxis_title='Date',
-    yaxis_title='Normalized Price',
-    legend_title='Assets',
-    hovermode='x unified'
+    title="MSTR & BTC Prices with Dual Y-Axes",
+    xaxis_title="Date",
+    yaxis_title="MSTR Price",
+    yaxis2_title="BTC Price",
+    legend_title="Assets",
+    hovermode="x unified"
 )
 
+# Show the plot
 st.plotly_chart(fig)
 
 # Add a flashy button

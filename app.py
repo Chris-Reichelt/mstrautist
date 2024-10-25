@@ -14,7 +14,7 @@ def get_mstr_data():
     mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    shares=202635000 #mstr.get_shares_full().iloc[-1]
+    shares=202635000 
     insiders=mstr.insider_roster_holders
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
 
@@ -29,14 +29,12 @@ def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     nav_premium = (mstr_price  / nav_per_share) 
     return nav_premium
 
-# Define function to calculate MSTR price based on Bitcoin price and NAV premium
-
 def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
     nav_per_share = btc_price * bitcoin_per_share
     future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
     return future_mstr_price
 
-# Get data
+# Calculate data used througout
 mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
 btc_price_last,btc_hist = get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
@@ -50,6 +48,8 @@ WIN=qs.stats.outlier_win_ratio(mstr_hist)
 # Page selection: First page for Current MSTR data, Second page for forecasting
 page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price Forecast", "Balance Sheet","Income Statement","Cash Flow","Financials"],index=0)
 
+
+#-----------------PAGE 1------------------------------
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
   st.markdown("""
@@ -130,7 +130,6 @@ if page == "Current MSTR Data":
 
   #Insider data
   insiders = insiders.drop('URL', axis=1)
-
   st.markdown("<h2 style='color: red; text-align: center;'>Current Insider Action</h2>", unsafe_allow_html=True)
   st.write(table_style + insiders.to_html(index=False, escape=False), unsafe_allow_html=True)
 
@@ -200,26 +199,7 @@ if page == "Current MSTR Data":
       </div>
   """, unsafe_allow_html=True)
 
-elif page == "Balance Sheet":
-  st.markdown("<h1 style='text-align: center; color: red;'>Balance Sheet</h1>", unsafe_allow_html=True)
-  mstr = yf.Ticker('MSTR').quarterly_balance_sheet
-  st.table(mstr)
-
-elif page == "Income Statement":
-  st.markdown("<h1 style='text-align: center; color: red;'>Income Statement</h1>", unsafe_allow_html=True)
-  mstr = yf.Ticker('MSTR').quarterly_income_stmt
-  st.table(mstr)
-
-elif page == "Cash Flow":
-  st.markdown("<h1 style='text-align: center; color: red;'>Cash Flow</h1>", unsafe_allow_html=True)
-  mstr = yf.Ticker('MSTR').quarterly_cashflow
-  st.table(mstr)
-
-elif page == "Financials":
-  st.markdown("<h1 style='text-align: center; color: red;'>Financials</h1>", unsafe_allow_html=True)
-  mstr = yf.Ticker('MSTR').quarterly_financials
-  st.table(mstr)
-
+#-------------------------------PAGE 2-------------------------
 elif page == "MSTR Price Forecast":
   st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast</h1>", unsafe_allow_html=True)
 
@@ -227,13 +207,7 @@ elif page == "MSTR Price Forecast":
   future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
   future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=-100.0)
   future_mstrBTC = st.number_input('Enter future MSTR Bitcoin held. My wifes boyfriend said this will go up.', value=mstr_btc, min_value=0)
-
-    
-  # Get data
-  #mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders = get_mstr_data()
-  #btc_price_last,btc_hist = get_btc_data()
   bitcoin_per_share =  future_mstrBTC/shares  # Update this with the latest value
-  #nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 
   # Calculate future MSTR price based on the inputs
   future_mstr_price = calculate_mstr_price(future_btc_price, future_nav_premium, bitcoin_per_share)
@@ -262,4 +236,33 @@ elif page == "MSTR Price Forecast":
           frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
   """, unsafe_allow_html=True)
+
+
+#-------------------------------PAGE 3-------------------------
+elif page == "Balance Sheet":
+  st.markdown("<h1 style='text-align: center; color: red;'>Balance Sheet</h1>", unsafe_allow_html=True)
+  mstr = yf.Ticker('MSTR').quarterly_balance_sheet
+  st.table(mstr)
+
+
+#-------------------------------PAGE 4-------------------------
+elif page == "Income Statement":
+  st.markdown("<h1 style='text-align: center; color: red;'>Income Statement</h1>", unsafe_allow_html=True)
+  mstr = yf.Ticker('MSTR').quarterly_income_stmt
+  st.table(mstr)
+
+
+#-------------------------------PAGE 5-------------------------
+elif page == "Cash Flow":
+  st.markdown("<h1 style='text-align: center; color: red;'>Cash Flow</h1>", unsafe_allow_html=True)
+  mstr = yf.Ticker('MSTR').quarterly_cashflow
+  st.table(mstr)
+
+
+#-------------------------------PAGE 6-------------------------
+elif page == "Financials":
+  st.markdown("<h1 style='text-align: center; color: red;'>Financials</h1>", unsafe_allow_html=True)
+  mstr = yf.Ticker('MSTR').quarterly_financials
+  st.table(mstr)
+
 

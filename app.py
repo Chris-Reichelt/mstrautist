@@ -53,7 +53,7 @@ if page == "Current MSTR Data":
   
   st.markdown("<h1 style='text-align: center; color: red;'>🚀 THE Autist MSTR App 🚀</h1>", unsafe_allow_html=True)
 
-  st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your future may hold...</h3>", unsafe_allow_html=True)
+  st.markdown("<h3 style='text-align: center;'>Track the madness of MSTR, BTC, and your tendies</h3>", unsafe_allow_html=True)
   st.image("https://media1.tenor.com/m/4z1chS4K7AYAAAAC/master-warning.gif", use_column_width=True)
 
   # Fetch data

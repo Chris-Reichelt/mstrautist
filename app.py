@@ -16,7 +16,7 @@ def get_mstr_data():
     mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
     current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    shares=202635000 
+    shares=mstr.info['impliedSharesOutstanding'] 
     insiders=mstr.insider_roster_holders
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders
 

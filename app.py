@@ -247,7 +247,7 @@ elif page == "MSTR Price Forecast":
     
   # Display the future MSTR price in big, orange text
   st.markdown(f"""
-      <div style="text-align: center; color: orange; font-size: 30px;">
+      <div style="text-align: center; color: orange; font-size: 48px;">
           <strong>Future MSTR Price: ${future_mstr_price:,.2f}</strong>
       </div>
   """, unsafe_allow_html=True)  

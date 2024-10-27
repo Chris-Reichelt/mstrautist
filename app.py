@@ -19,7 +19,10 @@ def get_mstr_data():
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
     except: 
       current_price=hist.iloc[-1]
-    shares=mstr.info['impliedSharesOutstanding'] 
+    try:  
+      shares=mstr.info['impliedSharesOutstanding'] 
+    except:
+      shares=202628000
     insiders=mstr.insider_roster_holders
     employees=mstr.info['fullTimeEmployees']
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees

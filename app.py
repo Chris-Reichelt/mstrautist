@@ -15,7 +15,11 @@ def get_mstr_data():
     mstr_btc=get_mstr_btc()
     mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
-    current_price = mstr.history(period='1d')['Close'].iloc[-1]
+    data = mstr.history(period='1d')['Close'].iloc[-1]
+    if not data.empty:
+      current_price = data['Close'].iloc[-1]
+    else:
+      current_price = None  # Or set a default value, such as 0
     shares=mstr.info['impliedSharesOutstanding'] 
     insiders=mstr.insider_roster_holders
     employees=mstr.info['fullTimeEmployees']

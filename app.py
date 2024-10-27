@@ -17,7 +17,7 @@ def get_mstr_data():
     hist = mstr.history(period='5y')['Close']
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    else:
+    except: 
       current_price=hist.iloc[-1]
     shares=mstr.info['impliedSharesOutstanding'] 
     insiders=mstr.insider_roster_holders

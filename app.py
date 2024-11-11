@@ -55,10 +55,10 @@ def get_btc_data():
     try:
         # Attempt to retrieve the latest closing price
         btc_price_data = btc.history(period='1d')
-        btc_price = btc_price_data['Close'].iloc[-1] if not btc_price_data.empty else None
+        btc_price = btc_price_data['Close'].iloc[-1] if not btc_price_data.empty else 0
     except (IndexError, KeyError):
         # Fallback to the last available price in btc_hist if '1d' data is empty
-        btc_price = btc_hist.iloc[-1] if not btc_hist.empty else None
+        btc_price = btc_hist.iloc[-1] if not btc_hist.empty else 0
 
     return btc_price, btc_hist
 

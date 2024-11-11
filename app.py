@@ -103,7 +103,10 @@ mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders,employees = get_mstr_dat
 btc_price_last,btc_hist = get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-CAGR=qs.stats.cagr(mstr_hist)*100
+if not mstr_hist.empty:
+    CAGR = qs.stats.cagr(mstr_hist) * 100
+else:
+    CAGR = None  # or 0 or any fallback valu
 sharpe=qs.stats.sharpe(mstr_hist)
 sortino=qs.stats.sortino(mstr_hist)
 common=qs.stats.common_sense_ratio(mstr_hist)

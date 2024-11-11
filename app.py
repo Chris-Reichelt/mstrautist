@@ -67,10 +67,16 @@ def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     nav_premium = (mstr_price  / nav_per_share) 
     return nav_premium
 
-def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
-    nav_per_share = btc_price * bitcoin_per_share
-    future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
-    return future_mstr_price
+def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
+    # Check if btc_price_last or bitcoin_per_share is None and handle it
+    if btc_price_last is None or bitcoin_per_share is None:
+        return None  # Return None or an appropriate fallback value
+    
+    # Calculate NAV per share and premium if both values are available
+    nav_per_share = bitcoin_per_share * btc_price_last
+    nav_premium = (mstr_price / nav_per_share) if nav_per_share != 0 else None  # Avoid division by zero
+    
+    return nav_premium
 
 def get_mstr_btc():
     url = "https://treasuries.bitbo.io/microstrategy/"

@@ -8,8 +8,7 @@ import quantstats as qs
 import requests
 from bs4 import BeautifulSoup
 import time
-import json
-from json import JSONDecodeError
+import json.decoder.JSONDecodeError
 #Define Functions
   
 def get_mstr_data():
@@ -93,6 +92,7 @@ page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price F
 #-----------------PAGE 1------------------------------
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
+  st.write(mrkt_cap)
   st.markdown("""
       <div style="text-align: center;">
           <a href="https://www.microstrategy.com" target="_blank">

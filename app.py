@@ -34,7 +34,7 @@ def get_mstr_data():
     try:
         current_price = mstr.history(period='1d')['Close'].iloc[-1]
     except (IndexError, KeyError):
-        current_price = hist.iloc[-1] if not hist.empty else None  # Check if hist has data
+        current_price = hist.iloc[-1] if not hist.empty else 0  # Check if hist has data
 
     # Retrieve shares outstanding with a default value if unavailable
     shares = mstr.info.get('impliedSharesOutstanding', 202628000)

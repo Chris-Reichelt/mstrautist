@@ -8,7 +8,8 @@ import quantstats as qs
 import requests
 from bs4 import BeautifulSoup
 import time
-import json.decoder.JSONDecodeError
+import json
+from json import JSONDecodeError
 #Define Functions
   
 def get_mstr_data():

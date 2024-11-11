@@ -13,24 +13,18 @@ from bs4 import BeautifulSoup
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
     mstr_btc=get_mstr_btc()
-    try:
-        mrkt_cap = mstr.fast_info['marketCap']
-    except KeyError:
-        mrkt_cap = None  # or set a default/fallback value
+    mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
     except: 
-      current_price=0
+      current_price=hist.iloc[-1]
     try:  
       shares=mstr.info['impliedSharesOutstanding'] 
     except:
       shares=202628000
     insiders=mstr.insider_roster_holders
-    try:
-      employees=mstr.info['fullTimeEmployees']
-    except:
-      employees=1627
+    employees=mstr.info['fullTimeEmployees']
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees
 
 def get_btc_data():

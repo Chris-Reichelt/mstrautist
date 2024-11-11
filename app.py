@@ -21,7 +21,7 @@ def get_mstr_data():
     except (KeyError, AttributeError):
         # Manually calculate market cap if fast_info is unavailable or invalid
         try:
-            last_price = mstr.history(period='1d')['Close'].iloc[-1] if not mstr.history(period='1d').empty else None
+            last_price = mstr.history(period='1d')['Close'].iloc[-1] if not mstr.history(period='1d').empty else 0
             shares = mstr.info.get('impliedSharesOutstanding', 202628000)  # Default to a fixed value if missing
             mrkt_cap = last_price * shares if last_price and shares else None
         except Exception:

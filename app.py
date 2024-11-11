@@ -12,23 +12,33 @@ from bs4 import BeautifulSoup
   
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
-    mstr_btc=get_mstr_btc()
+    mstr_btc = get_mstr_btc()
+    
+    # Safely retrieve market cap
     try:
-        mrkt_cap = mstr.fast_info['marketCap']
+        mrkt_cap = mstr.fast_info.get('marketCap', None)
     except KeyError:
-        mrkt_cap = None  # or set a default/fallback value
+        mrkt_cap = None  # Set to None or another fallback value if unavailable
+    
+    # Retrieve historical data
     hist = mstr.history(period='5y')['Close']
+    
+    # Retrieve the current price, falling back to the last available price in hist
     try:
-      current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    except: 
-      current_price=hist.iloc[-1]
-    try:  
-      shares=mstr.info['impliedSharesOutstanding'] 
-    except:
-      shares=202628000
-    insiders=mstr.insider_roster_holders
-    employees=mstr.info['fullTimeEmployees']
-    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees
+        current_price = mstr.history(period='1d')['Close'].iloc[-1]
+    except (IndexError, KeyError):
+        current_price = hist.iloc[-1] if not hist.empty else None  # Check if hist has data
+    
+    # Retrieve shares outstanding, with a fallback value
+    shares = mstr.info.get('impliedSharesOutstanding', 202628000)  # Default value if missing
+    
+    # Retrieve insiders data
+    insiders = mstr.insider_roster_holders if 'insider_roster_holders' in mstr.__dict__ else None
+    
+    # Retrieve employee count, with a fallback
+    employees = mstr.info.get('fullTimeEmployees', 'N/A')  # Default to 'N/A' if missing
+
+    return hist, current_price, mrkt_cap, shares, mstr_btc, insiders, employees
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')

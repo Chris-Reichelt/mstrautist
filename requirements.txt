@@ -1,9 +1,9 @@
-yfinance==0.2.48
-streamlit                                               
-pandas
+streamlit==1.40.0 
+yfinance==0.2.48                                             
+pandas==2.2.2
 plotly
 pytz
-quantstats
+quantstats==0.0.64
 ipython
-requests
+requests==2.32.3
 beautifulsoup4

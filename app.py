@@ -23,7 +23,7 @@ def get_mstr_data():
         try:
             last_price = mstr.history(period='1d')['Close'].iloc[-1] if not mstr.history(period='1d').empty else 0
             shares = mstr.info.get('impliedSharesOutstanding', 202628000)  # Default to a fixed value if missing
-            mrkt_cap = last_price * shares if last_price and shares else None
+            mrkt_cap = last_price * shares if last_price and shares else 0
         except Exception:
             mrkt_cap = 0  # Set to None if calculation fails
 

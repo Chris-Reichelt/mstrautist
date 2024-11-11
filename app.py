@@ -70,11 +70,11 @@ def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
 def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     # Check if btc_price_last or bitcoin_per_share is None and handle it
     if btc_price_last is None or bitcoin_per_share is None:
-        return None  # Return None or an appropriate fallback value
+        return 0  # Return None or an appropriate fallback value
     
     # Calculate NAV per share and premium if both values are available
     nav_per_share = bitcoin_per_share * btc_price_last
-    nav_premium = (mstr_price / nav_per_share) if nav_per_share != 0 else None  # Avoid division by zero
+    nav_premium = (mstr_price / nav_per_share) if nav_per_share != 0 else 0  # Avoid division by zero
     
     return nav_premium
 

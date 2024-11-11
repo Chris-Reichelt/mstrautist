@@ -10,73 +10,38 @@ from bs4 import BeautifulSoup
 
 #Define Functions
   
-
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
-    mstr_btc = get_mstr_btc()
-    
-    # Attempt to retrieve market cap, with a fallback calculation if unavailable
-    try:
-        mrkt_cap = mstr.fast_info.get('marketCap', 0)
-    except (KeyError, AttributeError):
-        # Manually calculate market cap if fast_info is unavailable or invalid
-        try:
-            last_price = mstr.history(period='1d')['Close'].iloc[-1] if not mstr.history(period='1d').empty else 0
-            shares = mstr.info.get('impliedSharesOutstanding', 202628000)  # Default to a fixed value if missing
-            mrkt_cap = last_price * shares if last_price and shares else 0
-        except Exception:
-            mrkt_cap = 0  # Set to None if calculation fails
-
-    # Retrieve historical data and handle empty data cases
+    mstr_btc=get_mstr_btc()
+    mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
-    
-    # Set current price, using a fallback to last price in hist if necessary
     try:
-        current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    except (IndexError, KeyError):
-        current_price = hist.iloc[-1] if not hist.empty else 0  # Check if hist has data
-
-    # Retrieve shares outstanding with a default value if unavailable
-    shares = mstr.info.get('impliedSharesOutstanding', 202628000)
-
-    # Retrieve insiders and employees data, with default values
-    insiders = mstr.insider_roster_holders
-    employees = mstr.info.get('fullTimeEmployees', 'N/A')
-
-    return hist, current_price, mrkt_cap, shares, mstr_btc, insiders, employees
+      current_price = mstr.history(period='1d')['Close'].iloc[-1]
+    except: 
+      current_price=hist.iloc[-1]
+    try:  
+      shares=mstr.info['impliedSharesOutstanding'] 
+    except:
+      shares=202628000
+    insiders=mstr.insider_roster_holders
+    employees=mstr.info['fullTimeEmployees']
+    return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
-    
-    # Fetch the historical data for the past 5 years
     btc_hist = btc.history(period='5y')['Close']
-    
-    # Fetch the latest BTC price, with a fallback to the last price in btc_hist
-    try:
-        # Attempt to retrieve the latest closing price
-        btc_price_data = btc.history(period='1d')
-        btc_price = btc_price_data['Close'].iloc[-1] if not btc_price_data.empty else 0
-    except (IndexError, KeyError):
-        # Fallback to the last available price in btc_hist if '1d' data is empty
-        btc_price = btc_hist.iloc[-1] if not btc_hist.empty else 0
-
-    return btc_price, btc_hist
+    btc_price = btc.history(period='1d')['Close'].iloc[-1]
+    return btc_price,btc_hist
 
 def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     nav_per_share = bitcoin_per_share * btc_price_last
     nav_premium = (mstr_price  / nav_per_share) 
     return nav_premium
 
-def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
-    # Check if btc_price_last or bitcoin_per_share is None and handle it
-    if btc_price_last is None or bitcoin_per_share is None:
-        return 0  # Return None or an appropriate fallback value
-    
-    # Calculate NAV per share and premium if both values are available
-    nav_per_share = bitcoin_per_share * btc_price_last
-    nav_premium = (mstr_price / nav_per_share) if nav_per_share != 0 else 0  # Avoid division by zero
-    
-    return nav_premium
+def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
+    nav_per_share = btc_price * bitcoin_per_share
+    future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
+    return future_mstr_price
 
 def get_mstr_btc():
     url = "https://treasuries.bitbo.io/microstrategy/"
@@ -103,10 +68,7 @@ mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders,employees = get_mstr_dat
 btc_price_last,btc_hist = get_btc_data()
 bitcoin_per_share =  mstr_btc/shares  # Update this with the latest value
 nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
-if not mstr_hist.empty:
-    CAGR = qs.stats.cagr(mstr_hist) * 100
-else:
-    CAGR = 0  # or 0 or any fallback valu
+CAGR=qs.stats.cagr(mstr_hist)*100
 sharpe=qs.stats.sharpe(mstr_hist)
 sortino=qs.stats.sortino(mstr_hist)
 common=qs.stats.common_sense_ratio(mstr_hist)
@@ -332,5 +294,4 @@ elif page == "Financials":
   st.markdown("<h1 style='text-align: center; color: red;'>Financials</h1>", unsafe_allow_html=True)
   mstr = yf.Ticker('MSTR').quarterly_financials
   st.table(mstr)
-
 

@@ -47,9 +47,20 @@ def get_mstr_data():
 
 def get_btc_data():
     btc = yf.Ticker('BTC-USD')
+    
+    # Fetch the historical data for the past 5 years
     btc_hist = btc.history(period='5y')['Close']
-    btc_price = btc.history(period='1d')['Close'].iloc[-1]
-    return btc_price,btc_hist
+    
+    # Fetch the latest BTC price, with a fallback to the last price in btc_hist
+    try:
+        # Attempt to retrieve the latest closing price
+        btc_price_data = btc.history(period='1d')
+        btc_price = btc_price_data['Close'].iloc[-1] if not btc_price_data.empty else None
+    except (IndexError, KeyError):
+        # Fallback to the last available price in btc_hist if '1d' data is empty
+        btc_price = btc_hist.iloc[-1] if not btc_hist.empty else None
+
+    return btc_price, btc_hist
 
 def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     nav_per_share = bitcoin_per_share * btc_price_last

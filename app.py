@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
     mstr_btc=get_mstr_btc()
-  try:
+    try:
         mrkt_cap = mstr.fast_info['marketCap']
     except KeyError:
         mrkt_cap = None  # or set a default/fallback value

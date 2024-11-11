@@ -17,7 +17,7 @@ def get_mstr_data():
     
     # Attempt to retrieve market cap, with a fallback calculation if unavailable
     try:
-        mrkt_cap = mstr.fast_info.get('marketCap', None)
+        mrkt_cap = mstr.fast_info.get('marketCap', 0)
     except (KeyError, AttributeError):
         # Manually calculate market cap if fast_info is unavailable or invalid
         try:

@@ -106,7 +106,7 @@ nav_premium=calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share)
 if not mstr_hist.empty:
     CAGR = qs.stats.cagr(mstr_hist) * 100
 else:
-    CAGR = None  # or 0 or any fallback valu
+    CAGR = 0  # or 0 or any fallback valu
 sharpe=qs.stats.sharpe(mstr_hist)
 sortino=qs.stats.sortino(mstr_hist)
 common=qs.stats.common_sense_ratio(mstr_hist)

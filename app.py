@@ -40,7 +40,7 @@ def get_mstr_data():
     shares = mstr.info.get('impliedSharesOutstanding', 202628000)
 
     # Retrieve insiders and employees data, with default values
-    insiders = mstr.insider_roster_holders if 'insider_roster_holders' in mstr.__dict__ else None
+    insiders = mstr.insider_roster_holders if 'insider_roster_holders' in mstr.__dict__ else 0
     employees = mstr.info.get('fullTimeEmployees', 'N/A')
 
     return hist, current_price, mrkt_cap, shares, mstr_btc, insiders, employees

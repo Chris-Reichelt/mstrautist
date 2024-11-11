@@ -27,7 +27,10 @@ def get_mstr_data():
     except:
       shares=202628000
     insiders=mstr.insider_roster_holders
-    employees=mstr.info['fullTimeEmployees']
+    try:
+      employees=mstr.info['fullTimeEmployees']
+    except:
+      employees=1627
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees
 
 def get_btc_data():

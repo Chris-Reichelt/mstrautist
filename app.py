@@ -13,7 +13,10 @@ from bs4 import BeautifulSoup
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
     mstr_btc=get_mstr_btc()
-    mrkt_cap=mstr.fast_info['marketCap']
+    try:
+        mrkt_cap = mstr.fast_info['marketCap']
+    except KeyError:
+        mrkt_cap = None  # or set a default/fallback value
     hist = mstr.history(period='5y')['Close']
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]

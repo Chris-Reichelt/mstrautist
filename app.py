@@ -7,13 +7,24 @@ import random
 import quantstats as qs
 import requests
 from bs4 import BeautifulSoup
-
+import time
+import json.decoder.JSONDecodeError
 #Define Functions
   
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
     mstr_btc=get_mstr_btc()
-    mrkt_cap=mstr.fast_info['marketCap']
+    retries = 3
+    for attempt in range(retries):
+        try:
+            # Try fetching the market cap
+            mrkt_cap = mstr.fast_info.get('marketCap', 0)
+            if mrkt_cap:
+                break  # Exit loop if successful
+        except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
+            time.sleep(2)  # Wait and retry
+            mrkt_cap = 0  # Set None if retries fail
+    #mrkt_cap=mstr.fast_info['marketCap']
     hist = mstr.history(period='5y')['Close']
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]

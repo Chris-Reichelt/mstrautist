@@ -93,7 +93,7 @@ page = st.sidebar.selectbox("Choose a page", ["Current MSTR Data", "MSTR Price F
 #-----------------PAGE 1------------------------------
 if page == "Current MSTR Data":
   # Add MSTR logo and a GME mania GIF
-  st.write(mrkt_cap)
+  
   st.markdown("""
       <div style="text-align: center;">
           <a href="https://www.microstrategy.com" target="_blank">

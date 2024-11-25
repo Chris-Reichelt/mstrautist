@@ -56,7 +56,7 @@ def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
     return future_mstr_price
 
 def get_mstr_btc():
-    url = "https://treasuries.bitbo.io/microstrategy/"
+    url = "https://saylortracker.com/"
     response = requests.get(url)
     response.raise_for_status()  # Ensure we handle HTTP errors
 
@@ -65,15 +65,10 @@ def get_mstr_btc():
 
     try:
         # Locate the table and find the BTC amount in the correct <td>
-        table = soup.find("table")  # Finds the first table on the page
-        if table:
-            # Locate the correct cell by finding the row containing "BTC" and navigating to the 5th cell
-            for row in table.find_all("tr"):
-                cells = row.find_all("td")
-            mstr_btc = int(cells[4].text.replace(",", "").strip())
+      mstr_btc = soup.find('span', id = "current-btc-amount") 
     except Exception as e:
         print(f"Error fetching BTC holdings: {e}")
-    return mstr_btc      
+    return int(mstr_btc.get('data-value'))      
 
 # Calculate data used througout
 mstr_hist, mstr_price,mrkt_cap,shares,mstr_btc,insiders,employees = get_mstr_data()

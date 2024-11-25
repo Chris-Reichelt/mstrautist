@@ -26,7 +26,7 @@ def get_mstr_data():
                 break  # Exit loop if successful
         except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
             time.sleep(2)  # Wait and retry
-            mrkt_cap = 0  # Set None if retries fail
+            mrkt_cap = 91736448592  #-----------------------------UPDATE
             shares=230477000 #-----------------------------UPDATE
 
     try:

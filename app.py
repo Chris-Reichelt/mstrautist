@@ -20,19 +20,19 @@ def get_mstr_data():
             # Try fetching the market cap
             mrkt_cap = mstr.fast_info.get('marketCap', 0)
             hist = mstr.history(period='5y')['Close']
+            shares=mstr.info['impliedSharesOutstanding'] 
+
             if mrkt_cap:
                 break  # Exit loop if successful
         except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
             time.sleep(2)  # Wait and retry
             mrkt_cap = 0  # Set None if retries fail
-    #mrkt_cap=mstr.fast_info['marketCap']
-    #hist = mstr.history(period='5y')['Close']
+
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
     except: 
       current_price=hist.iloc[-1]
   
-    shares=mstr.info['impliedSharesOutstanding'] 
     insiders=mstr.insider_roster_holders
     employees=mstr.info['fullTimeEmployees']
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees

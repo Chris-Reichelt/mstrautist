@@ -14,6 +14,12 @@ from json import JSONDecodeError
 def get_mstr_data():
     mstr = yf.Ticker('MSTR')
     mstr_btc=get_mstr_btc()
+
+    try:
+      current_price = mstr.history(period='1d')['Close'].iloc[-1]
+    except: 
+      current_price=hist.iloc[-1]
+
     retries = 3
     for attempt in range(retries):
         try:
@@ -26,14 +32,9 @@ def get_mstr_data():
                 break  # Exit loop if successful
         except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
             time.sleep(2)  # Wait and retry
-            mrkt_cap = 91736448592  #-----------------------------UPDATE
             shares=230477000 #-----------------------------UPDATE
+            mrkt_cap = shares*current_price   #-----------------------------UPDATE
 
-    try:
-      current_price = mstr.history(period='1d')['Close'].iloc[-1]
-    except: 
-      current_price=hist.iloc[-1]
-  
     insiders=mstr.insider_roster_holders
     employees=mstr.info['fullTimeEmployees']
     return hist, current_price,mrkt_cap,shares,mstr_btc,insiders, employees

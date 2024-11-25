@@ -27,7 +27,7 @@ def get_mstr_data():
         except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
             time.sleep(2)  # Wait and retry
             mrkt_cap = 0  # Set None if retries fail
-            shares=1
+            shares=230477000 #-----------------------------UPDATE
 
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]

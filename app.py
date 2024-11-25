@@ -50,6 +50,10 @@ def calculate_nav_premium(mstr_price, btc_price_last, bitcoin_per_share):
     nav_premium = (mstr_price  / nav_per_share) 
     return nav_premium
 
+def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
+    nav_per_share = btc_price * bitcoin_per_share
+    future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
+    return future_mstr_price
 
 
 def get_mstr_btc():
@@ -236,11 +240,6 @@ if page == "Current MSTR Data":
 
 #-------------------------------PAGE 2-------------------------
 elif page == "MSTR Price Forecast":
-
-  def calculate_mstr_price(btc_price, nav_premium, bitcoin_per_share):
-    nav_per_share = btc_price * bitcoin_per_share
-    future_mstr_price = nav_per_share *  nav_premium  # NAV premium as a percentage
-    return future_mstr_price
 
   st.markdown("<h1 style='text-align: center; color: red;'>MSTR Price Forecast</h1>", unsafe_allow_html=True)
 

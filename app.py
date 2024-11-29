@@ -245,8 +245,8 @@ elif page == "MSTR Price Forecast":
 
   # User inputs for future Bitcoin price and future NAV premium
   future_btc_price = st.number_input('Enter future Bitcoin price', value=btc_price_last, min_value=0.0)
-  future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=0)
-  future_mstrBTC = st.number_input('Enter future MSTR Bitcoin held. My wifes boyfriend said this will go up.', value=mstr_btc, min_value=0)
+  future_nav_premium = st.number_input('Enter future NAV Premium (%)', value=nav_premium, min_value=0.0)
+  future_mstrBTC = st.number_input('Enter future MSTR Bitcoin held. My wifes boyfriend said this will go up.', value=mstr_btc, min_value=0.0)
   bitcoin_per_share =  future_mstrBTC/shares  # Update this with the latest value
 
   # Calculate future MSTR price based on the inputs

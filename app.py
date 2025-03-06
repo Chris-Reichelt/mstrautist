@@ -32,7 +32,7 @@ def get_mstr_data():
                 break  # Exit loop if successful
         except (KeyError, AttributeError, TypeError, ValueError, JSONDecodeError):
             time.sleep(2)  # Wait and retry
-            shares=230477000 #-----------------------------UPDATE
+            shares=294063000 #-----------------------------UPDATE
             mrkt_cap = shares*current_price   #-----------------------------UPDATE
 
     insiders=mstr.insider_roster_holders

@@ -18,7 +18,7 @@ def get_mstr_data():
     try:
       current_price = mstr.history(period='1d')['Close'].iloc[-1]
     except: 
-      current_price=hist.iloc[-1]
+      current_price=mstr.history(period='5d')['Close'].iloc[-1]
 
     retries = 3
     for attempt in range(retries):
